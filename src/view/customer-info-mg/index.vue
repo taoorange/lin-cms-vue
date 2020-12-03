@@ -89,6 +89,7 @@ export default {
       this.pagination = Qpagination
     }
     await this.queryList(this.pagination)
+    console.log(99999)
   },
   watch: {
     pagination: {
