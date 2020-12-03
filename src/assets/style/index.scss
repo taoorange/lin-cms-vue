@@ -1,0 +1,64 @@
+@import './realize/reset';
+@import './realize/animation';
+@import './realize/transition';
+@import './realize/global';
+
+.lin-container {
+  font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "PingFang SC", "Microsoft YaHei", '微软雅黑', 'SimSun', '宋体', 'Heiti', '黑体', 'sans-serif';
+  padding: 20px 30px;
+  position: relative;
+  .el-divider--horizontal {
+    margin: 0px;
+  }
+  .lin-title {
+    height: 59px;
+    line-height: 59px;
+    color: $parent-title-color;
+    font-size: 16px;
+    font-weight: 500;
+    text-indent: 40px;
+    border-bottom: 1px solid #dae1ed;
+  }
+
+  .lin-wrap {
+    padding: 20px;
+  }
+
+  .title {
+    h1 {
+      font-size: 14px;
+      font-weight: 600;
+      height: 30px;
+      padding: 0 20px 0 22px;
+      margin-top: 20px;
+      &:before {
+        content: '';
+        display: inline-block;
+        height: 20px;
+        width: 3px;
+        background-color: #3963bc;
+        vertical-align: middle;
+        margin-right: 15px;
+        border-radius: 2px;
+      }
+    }
+  }
+
+}
+
+// table表格td中的按钮样式
+.table-link-btn {
+  color: #3963bc;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+// table表格上部的按钮
+.table-button-wrap {
+   position: absolute;
+   z-index: 200;
+   top: 9px;
+   right: 130px;
+}
