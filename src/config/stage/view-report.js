@@ -1,7 +1,7 @@
 const viewReport = {
   route: null,
   name: null,
-  title: '数据分析',
+  title: '数据分析模板',
   type: 'folder', // 类型: folder, tab, view
   icon: '/icons/view-report.png',
   filePath: 'view/view-report/', // 文件路径

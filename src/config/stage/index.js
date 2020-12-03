@@ -1,13 +1,6 @@
 // import pluginsConfig from './plugin'
 import Utils from '@/lin/util/util'
 import customerConfig from './customer-mg'
-import workerOrder from './worker-order'
-import renewalConfig from './renewal-mg'
-import agentAssign from './agent-assign'
-import agentMg from './agent-mg'
-// import agentRenewal from './agent-renewal'
-import visitMg from './visit-mg'
-import systemSetting from './setting-mg'
 import viewReport from './view-report'
 
 let homeRouter = [
@@ -21,12 +14,6 @@ let homeRouter = [
     icon: 'iconfont icon-rizhiguanli',
   },
   customerConfig,
-  workerOrder,
-  renewalConfig,
-  agentAssign,
-  agentMg,
-  visitMg,
-  systemSetting,
   viewReport,
 ]
 
