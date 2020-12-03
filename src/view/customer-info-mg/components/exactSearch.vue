@@ -11,7 +11,7 @@
   >
     <el-row :gutter="24">
       <el-col :span="8">
-          <el-form-item label="客户分类" label-width="100px">
+          <el-form-item label="select下老" label-width="100px">
             <el-select v-model="query.client_type" clearable placeholder="请选择">
               <el-option v-for="item in customerType" :key="item.code" :label="item.value" :value="item.code">
               </el-option>
@@ -19,12 +19,12 @@
           </el-form-item>
         </el-col>
       <el-col :span="8">
-        <el-form-item label="客户姓名">
+        <el-form-item label="input输入">
           <el-input v-model="query.name" placeholder="请输入" clearable> </el-input>
         </el-form-item>
       </el-col>
       <el-col :span="8">
-        <el-form-item label="手机号">
+        <el-form-item label="input输入">
           <el-input v-model="query.phone" placeholder="请输入" clearable> </el-input>
         </el-form-item>
       </el-col>
@@ -33,7 +33,7 @@
     <div class="more-row-wrap" v-show="!closed">
       <el-row :gutter="24">
         <el-col :span="16">
-          <el-form-item label="注册时间段" label-width="100px">
+          <el-form-item label="时间" label-width="100px">
             <el-date-picker
               v-model="query.dateRange"
               type="daterange"
@@ -46,14 +46,6 @@
             </el-date-picker>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
-        <el-form-item label="客户来源">
-          <el-select v-model="query.source" clearable placeholder="请选择">
-            <el-option v-for="item in customerSource" :key="item.code" :label="item.value" :value="item.code">
-            </el-option>
-          </el-select>
-        </el-form-item>
-      </el-col>
       </el-row>
     </div>
   </basic-search>

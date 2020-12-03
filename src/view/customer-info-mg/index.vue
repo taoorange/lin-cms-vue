@@ -5,7 +5,7 @@
     <!-- 列表页面 -->
     <div class="container">
       <div class="table-button-wrap">
-        <el-button type="primary" @click="jumpCreateWorker">创建工单</el-button>
+        <el-button type="primary" @click="jumpCreateWorker">按钮</el-button>
       </div>
       <!-- 表格 -->
       <lin-table
@@ -157,7 +157,7 @@ export default {
     },
     // 跳转创建工单
     jumpCreateWorker() {
-      this.$router.push({ path: '/worker-order/create' })
+      
     },
   },
 }
