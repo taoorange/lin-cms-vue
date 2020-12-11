@@ -1,7 +1,8 @@
 import '@babel/polyfill'
 import Vue from 'vue'
 import ElementUI from 'element-ui'
-
+window.eventBus = new Vue()
+Vue.prototype.$eventBus = new Vue()
 import '@/config/global'
 import '@/lin/mixin'
 import '@/lin/filter'

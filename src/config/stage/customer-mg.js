@@ -19,6 +19,24 @@ const customerConfig = {
       icon: 'iconfont el-icon-tickets',
       permission: ['客服'],
     },
+    {
+      title: '兄弟',
+      type: 'view',
+      name: 'BortherTest',
+      route: '/customer/brother',
+      filePath: 'view/customer-info-mg/son-component2.vue',
+      inNav: true,
+      icon: 'iconfont el-icon-tickets',
+    },
+    {
+      title: '抽奖',
+      type: 'view',
+      name: 'LuckDraw',
+      route: '/customer/luck-draw',
+      filePath: 'view/customer-info-mg/luck-draw.vue',
+      inNav: true,
+      icon: 'iconfont el-icon-tickets',
+    },
   ],
 }
 

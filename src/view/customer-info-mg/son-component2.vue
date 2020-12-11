@@ -1,26 +1,37 @@
 <template>
   <div>
-
+   
   </div>
 </template>
 
 <script>
 import Utils from 'lin/util/util'
-// import model from '@/model/customer'
+import BigBrother from './son-component'
 export default {
   name: '',
-  components: {
-  
+  props: {
+    ...BigBrother.props
+    // modelSon: {
+    //   type: String,
+    //   default: ''
+    // }
+  },
+  inject: {
+    toSon: {
+      default: ''
+    }
   },
   data() {
     return {
       
     }
   },
+  inheritAttrs: false,
   async created() {
-   
+    console.log(BigBrother.props)
   },
   methods: {
+   
     
   },
 }
@@ -30,6 +41,5 @@ export default {
 .container {
   padding: 0 30px;
   position: relative;
-
 }
 </style>

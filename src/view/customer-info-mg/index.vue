@@ -2,29 +2,30 @@
   <div>
     <exact-search :handleSearch="handleSearch" ref="exactSearch" />
 
-    <!-- 列表页面 -->
-    <div class="container">
+    <!-- <div class="container">
       <div class="table-button-wrap">
-        <el-button type="primary" @click="jumpCreateWorker">按钮</el-button>
+        <el-button type="primary" >按钮</el-button>
       </div>
-      <!-- 表格 -->
       <lin-table
         title="客户信息管理"
         :tableColumn="tableColumn"
         :tableData="tableData"
-        :operate="operate"
         :showSelectCol="true"
         :index="true"
         :actionWidth="150"
         :pagination="pagination"
-        @handleEdit="handleEdit"
-        @goToGroupEditPage="goToGroupEditPage"
         :queryList="queryList"
         :currentChange="currentChange"
         :sizeChange="sizeChange"
         v-loading="loading"
       ></lin-table>
-    </div>
+    </div> -->
+
+    <father-component
+      :tableColumn="tableColumn"
+      :pagination="pagination"
+      v-on:propToComponentA="listenComponentC"
+    />
   </div>
 </template>
 
@@ -35,12 +36,20 @@ import LinTable from '@/component/base/table/lin-table'
 import ExactSearch from './components/exactSearch'
 import { dateFormat } from 'lin/util/util'
 import { clientType, sourceType } from 'lin/format/customer'
-import { setKEY, getKEY } from 'lin/util/storage'
+// import { setKEY, getKEY } from 'lin/util/storage'
+import FatherComponent from './father-component'
+
 export default {
   name: 'CustomerMg',
   components: {
     LinTable,
     ExactSearch,
+    FatherComponent,
+  },
+  provide() {
+    return {
+      toSon: 'this is to my son'
+    }
   },
   data() {
     return {
@@ -73,7 +82,6 @@ export default {
         },
       ],
       tableData: [],
-      operate: this.handleOperate(),
       showEdit: false,
       editBookID: 1,
       pagination: {
@@ -84,17 +92,14 @@ export default {
     }
   },
   async created() {
-    const Qpagination = getKEY('Qpagination')
-    if(Qpagination) {
-      this.pagination = Qpagination
-    }
-    await this.queryList(this.pagination)
-    console.log(99999)
+    // await this.queryList(this.pagination)
+    // console.log(this.$listeners)
+    // console.log(this.$children)
   },
   watch: {
     pagination: {
       handler(val) {
-        setKEY('Qpagination', val)
+        // console.log('分页发生了变化')
       },
       immediate: false,
       deep:true,
@@ -121,45 +126,23 @@ export default {
       delete this.queryObj.dateRange
       await this.queryList()
     },
-    // 操作按钮
-    handleOperate() {
-      const operate = [
-        {
-          name: '详情',
-          func: 'goToGroupEditPage',
-          type: 'primary',
-        },
-      ]
-      return operate
-    },
-    handleEdit(val) {
-      this.dialogVisible = true
-    },
-    // 跳转去详情页
-    goToGroupEditPage(val) {
-      this.$router.push({
-        path: '/customer/detail',
-        query: {
-          client_id: val.row.client_id,
-        },
-      })
-    },
     // 切换当前页
     currentChange(val) {
       this.pagination.page = val
-      setKEY('Qpagination', this.pagination)
       this.queryList()
     },
     sizeChange(val) {
       this.pagination.page_size = val
       this.pagination.page = 1
-      setKEY('Qpagination', this.pagination)
       this.queryList()
     },
-    // 跳转创建工单
-    jumpCreateWorker() {
-      
+    listenComponentC(data) {
+      console.log(data)
     },
+    sonSong(data) {
+      console.log('爷爷',data)
+    }
+    
   },
 }
 </script>
