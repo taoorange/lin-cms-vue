@@ -82,7 +82,8 @@
           <!-- 一级else -->
           <router-link :to="item.path" :key="item.name" v-else>
             <el-menu-item class="subMenuContent" :index="idMap[item.name]" :key="idMap[item.name]">
-              <i v-if="!filterIcon(item.icon)" :class="item.icon"></i> <img v-else :src="item.icon" class="imgIcon" />
+              <i v-if="!filterIcon(item.icon)" :class="item.icon"></i>
+              <img v-else :src="item.icon" class="imgIcon" />
               <span slot="title">{{ item.title }}</span>
             </el-menu-item>
           </router-link>

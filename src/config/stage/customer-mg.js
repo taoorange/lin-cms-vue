@@ -7,7 +7,7 @@ const customerConfig = {
   filePath: 'view/customer-info-mg/', // 文件路径
   order: 1,
   inNav: true,
-  permission: ['客服'],
+  // permission: ['客服'],
   children: [
     {
       title: '列表',
@@ -17,7 +17,7 @@ const customerConfig = {
       filePath: 'view/customer-info-mg/index.vue',
       inNav: true,
       icon: 'iconfont el-icon-tickets',
-      permission: ['客服'],
+      // permission: ['客服'],
     },
     {
       title: '兄弟',

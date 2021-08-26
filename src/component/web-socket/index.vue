@@ -189,64 +189,10 @@ export default {
     ...mapGetters(['logined', 'user']),
   },
   mounted() {
-    const self = this
-    const auth = this.judgeAuth(this.logined, this.user)
-    if(!auth) {
-      return false
-    }
-    if(!this.user.udesk_serverid) {
-      console.log('当前登录客服没有udesk_serverid，请联系开发人员进行添加')
-      return false
-    }
-
-    let AppDataProviderBase = UdeskCCPaasApiClass.AppDataProvider;
-    class AppDataProvider extends AppDataProviderBase {
-        GetToken() {
-            return new Promise((resolve, reject) => {
-                // 设置鉴权信息
-                const data = {
-                    appId: APPID,     //租户唯一标识
-                    timestamp: now,  //鉴权用的时间戳
-                    token: getToken(now),
-                }
-                resolve(data)
-            });
-        }
-    }
-
-    window.UdeskCCPaasApiClassInstance = new UdeskCCPaasApiClass({
-        AgentId: this.user.udesk_serverid,
-        AppId: APPID,
-        AutoConnect: true,
-        AppDataProvider: new AppDataProvider(),
-        Log: function (message, type) {}
-    });
-    UdeskCCPaasApiClassInstance.Init();
-
-    // 事件捕获，监听电话振铃
-    UdeskCCPaasApiClassInstance.on('Delivered', function(resp) {
-        const { Data: { CallerInfo } } = resp
-        if (Object.keys(CallerInfo).length) {
-          if(auth) {
-            const { TelNumber } = CallerInfo
-            const regPhone = /^1\d{10}$/
-            if (TelNumber && regPhone.test(TelNumber)) {
-              self.dataVisable = true
-              self.getClientInfo(TelNumber)
-              self.dto.phone = TelNumber
-            }
-          }
-        }
-    })
-
-    
+   
   },
   created() {
     // 模拟弹框假数据
-    // const self = this
-    // self.dataVisable = true
-    // self.getClientInfo(18923333333)
-    // self.dto.phone = 18923333333
   },
   watch: {
     dataVisable(val) {
@@ -260,6 +206,56 @@ export default {
     }
   },
   methods: {
+    initSocket() {
+      console.log('调用了websocket的初始化事件')
+      const self = this
+      const auth = this.judgeAuth(this.logined, this.user)
+      if(!auth) {
+        return false
+      }
+      if(!this.user.udesk_serverid) {
+        console.log('当前登录客服没有udesk_serverid，请联系开发人员进行添加')
+        return false
+      }
+      let AppDataProviderBase = UdeskCCPaasApiClass.AppDataProvider;
+      class AppDataProvider extends AppDataProviderBase {
+        GetToken() {
+          return new Promise((resolve, reject) => {
+              // 设置鉴权信息
+              const data = {
+                  appId: APPID,     //租户唯一标识
+                  timestamp: now,  //鉴权用的时间戳
+                  token: getToken(now),
+              }
+              resolve(data)
+          });
+        }
+      }
+      window.UdeskCCPaasApiClassInstance = new UdeskCCPaasApiClass({
+          AgentId: this.user.udesk_serverid,
+          AppId: APPID,
+          AutoConnect: true,
+          AppDataProvider: new AppDataProvider(),
+          Log: function (message, type) {}
+      });
+      UdeskCCPaasApiClassInstance.Init();
+      sessionStorage.setItem('webSockedHasConnected', true)
+      // 事件捕获，监听电话振铃
+      UdeskCCPaasApiClassInstance.on('Delivered', function(resp) {
+        const { Data: { CallerInfo } } = resp
+        if (Object.keys(CallerInfo).length) {
+          if(auth) {
+            const { TelNumber } = CallerInfo
+            const regPhone = /^1\d{10}$/
+            if (TelNumber && regPhone.test(TelNumber)) {
+              self.dataVisable = true
+              self.getClientInfo(TelNumber)
+              self.dto.phone = TelNumber
+            }
+          }
+        }
+      })
+    },
     // 判断当前为客户，且已经登录
     judgeAuth(login, user) {
       if(login && user && user.role ===2) {

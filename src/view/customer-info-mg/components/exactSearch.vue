@@ -11,14 +11,6 @@
   >
     <el-row :gutter="24">
       <el-col :span="8">
-          <el-form-item label="select下老" label-width="100px">
-            <el-select v-model="query.client_type" clearable placeholder="请选择">
-              <el-option v-for="item in customerType" :key="item.code" :label="item.value" :value="item.code">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-      <el-col :span="8">
         <el-form-item label="input输入">
           <el-input v-model="query.name" placeholder="请输入" clearable> </el-input>
         </el-form-item>
@@ -62,7 +54,7 @@ export default {
   data() {
     return {
       customerSource: customerSourceData(),
-      customerType: customerTypeData(true),
+      selectList:[],
       dateRange: []
     }
   },

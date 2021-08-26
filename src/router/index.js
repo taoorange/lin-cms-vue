@@ -49,46 +49,46 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
 
-  // 登录验证
-  if (isLoginRequired(to.name) && !store.state.logined) {
-    next({ path: '/login' })
-    return
-  }
+  // // 登录验证
+  // if (isLoginRequired(to.name) && !store.state.logined) {
+  //   next({ path: '/login' })
+  //   return
+  // }
 
-  // 权限验证
-  if (store && store.state && store.getters) {
-    const { permissions, user } = store.getters
+  // // 权限验证
+  // if (store && store.state && store.getters) {
+  //   const { permissions, user } = store.getters
 
-    // 默认路径跳转设置
-    if(to.path && user && user.role) {
-      const {role} = user
-      if(to.path === '/customer/list' && (role === 3 || role === 4)) {
-        const redirectPath = handleRedirect(role)
-        next({path: redirectPath})
-      }
+  //   // 默认路径跳转设置
+  //   if(to.path && user && user.role) {
+  //     const {role} = user
+  //     if(to.path === '/customer/list' && (role === 3 || role === 4)) {
+  //       const redirectPath = handleRedirect(role)
+  //       next({path: redirectPath})
+  //     }
 
-    }
+  //   }
     
-    // 路由权限判断
-    const hasAuth = Util.hasPermission(permissions, to.meta, user)
-    if (to.path !== '/404' && !hasAuth) {
-      Vue.prototype.$notify({
-        title: '无权限',
-        dangerouslyUseHTMLString: true,
-        message: '<strong class="my-notify">您无此页面的权限哟</strong>',
-      })
-      next({ path: '/404' })
-      return
-    }
-  }
+  //   // 路由权限判断
+  //   const hasAuth = Util.hasPermission(permissions, to.meta, user)
+  //   if (to.path !== '/404' && !hasAuth) {
+  //     Vue.prototype.$notify({
+  //       title: '无权限',
+  //       dangerouslyUseHTMLString: true,
+  //       message: '<strong class="my-notify">您无此页面的权限哟</strong>',
+  //     })
+  //     next({ path: '/404' })
+  //     return
+  //   }
+  // }
 
-  // 路由发生变化重新计时
-  Vue.prototype.$_lin_jump()
+  // // 路由发生变化重新计时
+  // Vue.prototype.$_lin_jump()
 
-  // 路由发生变化修改页面title
-  if (to.meta.title) {
-    document.title = to.meta.title
-  }
+  // // 路由发生变化修改页面title
+  // if (to.meta.title) {
+  //   document.title = to.meta.title
+  // }
 
   next()
 })

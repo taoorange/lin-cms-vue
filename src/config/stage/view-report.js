@@ -7,7 +7,7 @@ const viewReport = {
   filePath: 'view/view-report/', // 文件路径
   order: 8,
   inNav: true,
-  permission: ['客服', '查看报表'],
+  // permission: ['客服', '查看报表'],
   children: [
     {
       title: '用户分析',
@@ -17,7 +17,7 @@ const viewReport = {
       filePath: 'view/view-report/user-analysis',
       inNav: true,
       icon: 'iconfont el-icon-s-data',
-      permission: ['客服', '查看报表'],
+      // permission: ['客服', '查看报表'],
     },
     {
       title: '产品分析',
@@ -27,7 +27,7 @@ const viewReport = {
       filePath: 'view/view-report/product-analysis',
       inNav: true,
       icon: 'iconfont el-icon-s-data',
-      permission: ['客服', '查看报表'],
+      // permission: ['客服', '查看报表'],
     },
   ],
 }

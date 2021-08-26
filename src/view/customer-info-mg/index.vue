@@ -2,11 +2,11 @@
   <div>
     <exact-search :handleSearch="handleSearch" ref="exactSearch" />
 
-    <!-- <div class="container">
+    <div class="container">
       <div class="table-button-wrap">
-        <el-button type="primary" >按钮</el-button>
+        <el-button type="primary" @click="checkDebounce">按钮</el-button>
       </div>
-      <lin-table
+      <!-- <lin-table
         title="客户信息管理"
         :tableColumn="tableColumn"
         :tableData="tableData"
@@ -18,27 +18,38 @@
         :currentChange="currentChange"
         :sizeChange="sizeChange"
         v-loading="loading"
-      ></lin-table>
-    </div> -->
+      ></lin-table> -->
 
-    <father-component
-      :tableColumn="tableColumn"
-      :pagination="pagination"
-      v-on:propToComponentA="listenComponentC"
-    />
+       <RecycleScroller
+          class="scroller"
+          :items="tableList"
+          :min-item-size="30"
+          size-field="small"
+          key-field="id"
+          v-slot="{ item }"
+        >
+          <div class="user">
+            {{ item.value }}
+          </div>
+        </RecycleScroller>
+    </div>
   </div>
 </template>
 
 <script>
-import Utils from 'lin/util/util'
+import Utils, { debounce2 } from 'lin/util/util'
 import model from '@/model/customer'
 import LinTable from '@/component/base/table/lin-table'
 import ExactSearch from './components/exactSearch'
 import { dateFormat } from 'lin/util/util'
 import { clientType, sourceType } from 'lin/format/customer'
-// import { setKEY, getKEY } from 'lin/util/storage'
+import { setKEY, getKEY } from 'lin/util/storage'
 import FatherComponent from './father-component'
-
+// https://www.yuque.com/docs/share/405eacee-a750-4547-b299-a74b14a72dca?# 《一次性渲染十万条数据》
+let tableList = []
+for(let i=0;i < 10000;i ++) {
+  tableList.push({id: i + 1, value: `我是第${i + 1}个兄弟`})
+}
 export default {
   name: 'CustomerMg',
   components: {
@@ -53,6 +64,7 @@ export default {
   },
   data() {
     return {
+      tableList,
       loading: false,
       tableColumn: [
         {
@@ -78,6 +90,7 @@ export default {
           label: '客户来源',
           render: (h, { index, row, col }) => {
             return <span>{sourceType(row.source)}</span>
+      
           },
         },
       ],
@@ -92,9 +105,11 @@ export default {
     }
   },
   async created() {
-    // await this.queryList(this.pagination)
-    // console.log(this.$listeners)
-    // console.log(this.$children)
+    let d = {a:2}
+    Object.prototype.toString = function(){
+      console.log('Object')
+    }
+    console.log(d)
   },
   watch: {
     pagination: {
@@ -141,7 +156,10 @@ export default {
     },
     sonSong(data) {
       console.log('爷爷',data)
-    }
+    },
+    checkDebounce: debounce2( function() {
+        console.log('提交表单')
+    }, 5000)
     
   },
 }
@@ -164,7 +182,18 @@ export default {
       font-weight: 500;
     }
   }
-
+  .scroller {
+    height: 500px;
+    border: 1px solid red;
+  }
+  .user {
+    height: 50px;
+    width: 100%;
+    border: 1px solid green;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+  }
   .pagination {
     display: flex;
     justify-content: flex-end;

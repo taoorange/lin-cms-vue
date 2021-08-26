@@ -374,3 +374,22 @@ export const handleRedirect = function(user) {
   }
   return '/404'
 }
+
+export function debounce2(func, wait) {
+  let timer
+  // console.log('第一步')
+  // debugger
+  return function() {
+    let context = this
+    let args = arguments
+    if (timer) clearTimeout(timer)
+    console.log('查看callNow值')
+    let callNow = !timer
+    timer = setTimeout(() => {
+      console.log('定时器异步')
+      timer = null;
+    }, wait)
+    console.log('执行表单函数')
+    if (callNow) func.apply(context, args)
+  }
+}

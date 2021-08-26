@@ -8,8 +8,10 @@ import '@/lin/mixin'
 import '@/lin/filter'
 import '@/lin/plugin'
 import '@/lin/directive'
-// form表单验证规则
-// import Validate from '@/lin/util/form-rules.js'
+
+// import VueVirtualScroller from 'vue-virtual-scroller'
+import { RecycleScroller } from 'vue-virtual-scroller'
+
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
 import LinNotify from '@/component/notify'
 import router from '@/router'
@@ -23,10 +25,14 @@ import SourceCode from '@/component/base/source-code/source-code'
 import '@/assets/style/index.scss' // eslint-disable-line
 import '@/assets/style/realize/element-variable.scss'
 import 'element-ui/lib/theme-chalk/display.css'
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 
 Vue.config.productionTip = false
 
-// Vue.use(Validate)
+// Vue.use(VueVirtualScroller)
+Vue.component('RecycleScroller', RecycleScroller)
+
+
 Vue.use(ElementUI)
 Vue.use(LinNotify, {
   reconnection: true,

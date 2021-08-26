@@ -4,7 +4,7 @@
       <transition name="fade-transform" mode="out-in">
          <!-- :include="keepAliveInclude" -->
         <!-- <keep-alive> -->
-          <router-view v-if="isRouterAlive"></router-view>
+          <router-view></router-view>
         <!-- </keep-alive> -->
       </transition>
     </div>
